@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>류최 떡밥 소트</title>
+<script type="text/javascript">
+<!--
+//*********************************************************
+//
+// ?価するメンバ?の名前のリスト
+//
+// この部分を変更して下さい。名前の削除・追加も可?です。
+// 名前を引用符(")で括り、コン?(,)で区切って下さい。
+// 但し、リストの最後にはコン?を入れてはいけません。
+//
+//*********************************************************
+var namMember = new Array(
+
+"<br>재관이, 아니, 청동 요원이 널 현무 1팀에 바로 박았다며? 고지식한 녀석이 왜 갑자기 절차 무시하고 신입을 데려왔나 했는데, 역시보는 눈이 있으셔.</br>",
+"<br>말해주세요, 청동 요원님.<br>......셋 모두 무사히 귀가했습니다.</br>",
+"<br>[류재관이 최 요원을 밀치듯 문으로 몰았다.]<br>악! 재관이가 사람 잡는다!</br>",
+"<br>......요원님.<br>아이고 재관이 무서워라~ 일하자, 일.</br>",
+"<br>나랑 재관이!<br>[보고 때문에 잠깐 자리에서 사라진 청동 요원을 최 요원이 허공에서 대충 손으로 형태를 만들더니 자신과 번갈아 가리킨다.]</br>",
+"<br>최 요원님이... 업무와 직접적 관련 없는 말을 할 때는 반응해 주시지 않아도 괜찮습니다.<br>야! 너무한다. 그래, 업무와 관련된 말 하면 되잖아!</br>",
+"<br>확인했습니다.<br>굿.</br>",
+"<br>잡담 그만하고 준비합시다.<br>넴.</br>",
+"<br>...사실 좀 더 버틸수 있긴 한데, 관리국에서 그러라니까...<br>요원님.<br>그래! 그러니까 이틀이라고.</br>",
+"<br>그, 그럴까? 그럼 이틀 정도는 더...<br>요원님!</br>",
+"<br>청동 요원.<br>최 요원님.</br>",
+"<br>이번에는 정말로 어쩔 수 없나 보다. 청동아.<br>제가, 그래서 당일에 나가자고 하지 않았습니까...!</br>",
+"<br>규칙을 어기고. 괜한 희망을 주는건...<br>알아.<br>그래도 끝까지 해봐야 후회가 안 남는 거거든.</br>",
+"<br>요원님.<br>엉?<br>지금은... 차라리 저들을 제압해서 쫓아내는 편이 어떻습니까.<br>오.</br>",
+"<br>저거, 공무집행 방해죄로 유리감옥에 넣으면 알짜배기 정보가 나와줄 것 같은데.<br>......!<br>가자.</br>",
+"<br>요원님!<br>이크, 좀 쓰네.</br>",
+"<br>...청동아. 보여?<br>아뇨.<br>그래. ...아무것도 없네.</br>",
+"<br>요원님.<br>아냐아냐, 괜찮아.</br>",
+"<br>청동아.<br>[그때, 그의 선임이 어깨를 치며 재빨리 어깨동무를 해왔다.]<br>...!<br>[그리고 등에 손가락으로 글자를 쓴다.]<br>[침착.]</br>",
+"<br>[류재관은 하마터면 '그렇다고 손 놓고 있자고?'라고 소리를 지를 뻔했다.]</br>",
+"<br>[류재관이 참지 못하고 최 요원의 뒷덜미를 잡아당겼다.]<br>선배!!<br>최 요원이 한숨을 쉬며 후배의 등을 쳤다.<br>청동아, 청동아. 정신 좀 차려.</br>",
+"<br>요원을 살려야 더 많은 사람이 사는 겁니다.<br>난... 모르겠다. 사람 목숨에 등급 매기는 것도 아니고... 그냥 동료라 살리고 싶은 게 낫지 않겠어?<br>......</br>",
+"<br>우리 기관이... 원래 그랬던가? 전엔 좀 달랐던 것 같은데... 언제부턴지 그 원칙에 다들 목숨 걸더라.<br>필요하다는 걸 다들 깨달으신 겁니다.<br>......<br>[최 요원의 침묵은 동조가 아니라 부정에 가깝다는 것을, 류재관도 알았다.]</br>",
+"<br>......<br>요원님.<br>...아, 가자.</br>",
+"<br>...청동아?<br>[청동 요원은 빠르게 결정했다. 그리고 유리 손포를 들어 올리며 달려들었다.]<br>야...!</br>",
+"<br>[최요원이 썬캐쳐를 들어 간신히 시야를 가렸다. 옆에서 그의 후배가 유사한 동작을 하면서 피를 뱉는다.]</br>",
+"<br>[뭐라고?그러니까 지금 이 세상이...]<br>청동아!<br>[류재관은 퍼뜩 고개를 들었다.]</br>",
+"<br>[최 요원이 히죽 웃으며 자신의 직속 후배 등을 쳤다. 류재관은 한숨을 참으며 그 손길을 대강 피했다.]<br>위험합니다.<br>에이, 나 자전거 도사야.</br>",
+"<br>[청동 요원의 눈빛이 흐려졌으나 반박하지 않았다. 이부분에 대해서는 둘이 이미 예전에 싸우고 한번 합의를 본듯이.]</br>",
+"<br>재관아 이리 와 봐라. 막내가 인형을 가져왔어!<br>인형?</br>",
+"<br>[청동 요원이 최 요원의 엉덩이를 걷어차며 함께 대기실 밖으로 나갔다.]</br>",
+"<br>[최 요원과 청동 요원은 순간 서로를 마주 보더니, 무언의 합의를 본 것처럼 재빨리 내 곁에 다가와 근처 소파에 앉는다.]</br>",
+"<br>너무 걱정하지 않으셔도 괜찮습니다. 그인간... 아니, 요원님은 멀쩡해 보였으니까 말입니다.</br>",
+"<br>최 요원님이 주로 작성하신 겁니다. 쓸데없는 코멘트를 많이 적어두셨더군요.</br>",
+"<br>- 뉴 신입 대환영 현무 1팀의 에이스 최 요원의 꿀팁 대방출<br>└제발 이런 글 좀 그만 적으십시오<br>└청동 요원의 덜 단 꿀팁도 포함됨<br>└하...</br>",
+"<br>해당 초자연 재난에선 구조 요청자의 구출을 위해, 요원 두 명이 동원된다.</br>",
+"<br>기왕이면 007은 어떠십니까? 하하, 여기 요원님은 그 표현을 마음에 들어하시는데 말이죠!<br>...하.</br>",
+"<br>이제 저는 집이라는 말을 들으면 현무 1팀의 대기실이 떠오릅니다. 관리국의 기숙사방도 떠오르죠. 그리고 사람들의 얼굴이 떠오릅니다.</br>",
+"<br>...그 누구와의 상의도 없이 말입니다.<br>[청동 요원의 목소리에 노기가 살짝 섞였다가 꽉 눌린 듯 사라졌다.]<br>[아무래도 싸웠던 것 같은데.]</br>",
+"<br>이제 곧 나올 겁니다.<br>그래.<br>그만 움직이십시오.<br>그래야지.</br>",
+"<br>...재관아.<br>......<br>고맙다. 고생 많았어.</br>",
+"<br>[맞은편에 앉아 있던 청동 요원이 작게 고개를 끄덕였다. 무뚝뚝한 태도였으나, 그 안에서 부드러운 화해의 제스처를 읽어낸 최 요원은 그냥 잔잔히 자신의 후배를 바라보았다. 최 요원의 얼굴에 미소가 돌아왔다. 미안함과 고마움이 교차한다.]</br>",
+"<br>요원님 그건...<br>[최 요원은 청동 요원을 책상 아래에서 발로 한번 툭 친 후, 조용해진 후에 말을 잇는다.]</br>",
+"<br>[테이블 아래에서 해당 요원의 발을 급하게 밟았다는 것을 알았으나 친절히 외면해 주었다! 자기도 지난번에 비슷한 질문을 했으면서 말이다.]</br>",
+"<br>청동아.<br>요원님.<br>[청동 요원이 선임의 말을 막는다.]<br>규칙은 규칙입니다.</br>",
+"<br>[청동 요원이. 사라졌다. 나는 최 요원의 눈이 커지는 것을 보았다.]</br>",
+"<br>[자신이 들어온 것이 차라리 다행이라고 생각하지만]</br>",
+"<br>[...최 요원!]<br>[벌떡, 찬물을 맞은 듯 소름이 돋은 그가 자리에서 일어났다.]</br>",
+"<br>[요원은 익숙한 소음을 감지해 낸다. 방울 소리.]<br>[...저거!]</br>",
+"<br>[류재관은 쉽게 상상할 수 있다. 믿기지 않는다는 듯이 멍하니 상자를 보고 있다가, 결국 어떻게든 닫힌 상자를 분해하기 위해 머리를 굴리고 행동할 사람을.]</br>",
+"<br>[지금까지 많이 봐왔기 때문이다. 어떻게든 침착함을 되찾고, 좀 무모한 행동을 해서라도 이 상황을 헤쳐나가 사람을 구할 방법을 찾으려 들 요원.]</br>",
+"<br>[류재관은 입이 뒤틀리는 것을 느꼈다. 분노와 걱정.]</br>",
+"<br>요원님!<br>[최 요원이 하던 것을 중단하고 고개를 돌린다. 눈이 마주친 최 요원의 동공이 커진다. 놀람. 의심. 환희. 안도. 그리고... 울컥함.]</br>",
+"<br>재...<br>요원님!!<br>[류재관은 달려가서 멱살을 잡아 올렸다.]</br>",
+"<br>청동아.<br>[흉터 많은 두 손이 류재관의 어깨를 꽉 잡는다.]<br>고맙다...<br>......</br>",
+"<br>[멱살이 풀린 최 요원이 스륵 바닥에 쭈그려 앉았다. 숨을 몰아쉬는 그 모습에서, 류재관은 이 사람이 얼마나 긴장하고 심적으로 몰려 있던 건지 알아서 순간 만감이 스쳤다.]</br>",
+"<br>[자신을 제외한 현장 팀원이 전부 눈 깜빡할 순간에 초자연 재난에 잡혀, 수십 년간 고문당한 뒤 사망할 것을 깨달았을 때 선배의 심정.]</br>",
+"<br>[동시에 울컥했다.]<br>[자기는...!]<br>[맨날 혼자서 제일 위험한 시도나 하는 작자가!]</br>",
+"<br>[류재관은 겨우 한마디 했다.]<br>앞으로는 제발, 제발 무모한 짓 좀 하지 마십시오.<br>하하...<br>[대답은 최 요원에게서 돌아오지 않았다.]</br>",
+"<br>[류재관의 도움을 냉큼 받으며 최 요원이 말을 이었다.]<br>[류재관은 평소처럼 반박하는 대신 조용히 곁에 와서 섰다.]</br>",
+"<br>[고맙다, 재관아.]<br>[거짓말에 재능이 없는 자신의 후배가, 방금 막 살아돌아온 녀석이 어떻게든 보조해 주겠다고 재빨리 준비하고 있다는 것이 사무치게 느껴졌다.]</br>",
+"<br>[사실 암묵적인 다른 신호였지만 말이다.]<br>[류재관에게 보내는.]</br>",
+"<br>[청동 요원이 입을 달싹였으나, 곧 최 요원의 제지에 입을 다물었다.]</br>",
+"<br>우리 청동이가 너무 솔직하네. 시민분한테.</br>",
+"<br>오, 뻥튀기.<br>냄새 안 나면서 보관하기 편해서 말이죠. 하하하! 청동이는 안 좋아하지만.</br>",
+"<br>-아, 이거 순금에 보석 맞지? 바리데기 공방 장신구인데...<br>-요원님, 그거 대여품 아닙니까!</br>",
+"<br>그렇지, 청동아?<br>...예.</br>",
+"<br>청동아. 다시 방향!<br>예.</br>",
+"<br>[누구보다 빠른 회복세를 보인 류재관]<br>[이 상사는 PTSD 반응 이상의 비정상적인 오염 증세로 아예 육성 대화가 불가능한 상태였다. 목은 아예 쳐다보지 못하게 헝겊으로 가려둔 상황이기까지 했다.]</br>",
+"<br>[답지 않게 상사가 좀 머뭇거리다가 필담으로 물은 것처럼.]</br>",
+"<br>[청동 요원의 굳은 얼굴 위 눈에 단단한 빛이 돌더니, 최 요원과 시선을 교환한다. 최 요원이 희미하게 웃는다.]</br>",
+"<br>요원님.<br>[브라운의 성대모사를 하는 최 요원을 말린 청동 요원이 토끼 인형을 빼앗듯 들었다.]</br>",
+"<br>[요원들은 가만히 앉아서 서로 눈짓을 주고받았다.]<br>[...장비로 소통하는 건가?]</br>",
+"<br>[하회탈 중 양반과 백정을 나란히 쓴 두 사람]</br>",
+"<br>피리 부는 사나이 계통인가? 어때, 청동이 생각은?<br>...그보단, 좀비가 떠오릅니다만.</br>",
+"<br>[요원들이 고민 끝에 각각 왼손과 오른손 약지를 판매]</br>",
+"<br>[청동 요원이 할 말이 대단히 많아 보이는 표정이었으나, 최 요원이 어깨를 잡자 가면을 누르며 고개를 돌렸다.]</br>",
+"<br>청동아.<br>[최 요원의 낮은 목소리가 들렸다.]<br>관리국 매뉴얼을 네 생각처럼 말하지 말라고 했지. 내가.<br>......<br>우리 후배가 좀 강직해서 그렇지 나쁜 의도로 한말은 아닙니다, 시민님들.</br>",
+
+
+
+
+
+
+
+
+
+
+
+
+);
+//*********************************************************
+
+var lstMember = new Array();
+var parent = new Array();
+var equal = new Array();
+var rec = new Array();
+var cmp1,cmp2;
+var head1,head2;
+var nrec;
+
+var numQuestion;
+var totalSize;
+var finishSize;
+var finishFlag;
+
+//変数の初期化+++++++++++++++++++++++++++++++++++++++++++++
+function initList(){
+var n = 0;
+var mid;
+var i;
+
+
+
+// Fisher–Yates 셔플 (배열을 제자리에서 무작위로 섞음)
+function shuffle(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+}
+
+shuffle(namMember);
+
+
+
+
+
+
+
+//??トすべき配列
+lstMember[n] = new Array();
+for (i=0; i<namMember.length; i++) {
+lstMember[n][i] = i;
+}
+parent[n] = -1;
+totalSize = 0;
+n++;
+
+for (i=0; i<lstMember.length; i++) {
+//要素数が２以上なら２分割し、
+//分割された配列をlstMemberの最後に加える
+if(lstMember[i].length>=2) {
+mid = Math.ceil(lstMember[i].length/2);
+lstMember[n] = new Array();
+lstMember[n] = lstMember[i].slice(0,mid);
+totalSize += lstMember[n].length;
+parent[n] = i;
+n++;
+lstMember[n] = new Array();
+lstMember[n] = lstMember[i].slice(mid,lstMember[i].length);
+totalSize += lstMember[n].length;
+parent[n] = i;
+n++;
+}
+}
+
+//保存用配列
+for (i=0; i<namMember.length; i++) {
+rec[i] = 0;
+}
+nrec = 0;
+
+//引き分けの結果を保存するリスト
+//キ?：リンク始?の値
+// 値 ：リンク終?の値
+for (i=0; i<=namMember.length; i++) {
+equal[i] = -1;
+}
+
+cmp1 = lstMember.length-2;
+cmp2 = lstMember.length-1;
+head1 = 0;
+head2 = 0;
+numQuestion = 1;
+finishSize = 0;
+finishFlag = 0;
+}
+
+//リストの??ト+++++++++++++++++++++++++++++++++++++++++++
+//flag：比較結果
+//  -1：左を選択
+//   0：引き分け
+//   1：右を選択
+function sortList(flag){
+var i;
+var str;
+
+//recに保存
+if (flag<0) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+}
+else if (flag>0) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+else {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+equal[rec[nrec-1]] = lstMember[cmp2][head2];
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+
+//片方のリストを走査し終えた後の処理
+if (head1<lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+//リストcmp2が走査済 - リストcmp1の残りをコピ?
+while (head1<lstMember[cmp1].length){
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+}
+else if (head1==lstMember[cmp1].length && head2<lstMember[cmp2].length) {
+//リストcmp1が走査済 - リストcmp2の残りをコピ?
+while (head2<lstMember[cmp2].length){
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+
+//両方のリストの最後に到達した場合は
+//親リストを更新する
+if (head1==lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+for (i=0; i<lstMember[cmp1].length+lstMember[cmp2].length; i++) {
+lstMember[parent[cmp1]][i] = rec[i];
+}
+lstMember.pop();
+lstMember.pop();
+cmp1 = cmp1-2;
+cmp2 = cmp2-2;
+head1 = 0;
+head2 = 0;
+
+//新しい比較を行う前にrecを初期化
+if (head1==0 && head2==0) {
+for (i=0; i<namMember.length; i++) {
+rec[i] = 0;
+}
+nrec = 0;
+}
+}
+
+if (cmp1<0) {
+str = "Battle No."+(numQuestion-1)+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+document.getElementById("battleNumber").innerHTML = str;
+
+showResult();
+finishFlag = 1;
+}
+else {
+showImage();
+}
+}
+
+//結果の?示+++++++++++++++++++++++++++++++++++++++++++++++
+function showResult() {
+var ranking = 1;
+var sameRank = 1;
+var str = "";
+var i;
+
+str += "<table style=\"width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse\" align=\"center\">";
+str += "<tr><td style=\"color:#ffffff; background-color:#000; text-align:center;\">순위<\/td><td style=\"color:#ffffff; background-color:#000; text-align:center;\">이름<\/td><\/tr>";
+
+for (i=0; i<namMember.length; i++) {
+str += "<tr><td style=\"border:1px solid #000; text-align:right; padding-right:5px;\">"+ranking+"<\/td><td style=\"border:1px solid #000; padding-left:5px;\">"+namMember[lstMember[0][i]]+"<\/td><\/tr>";
+if (i<namMember.length-1) {
+if (equal[lstMember[0][i]]==lstMember[0][i+1]) {
+sameRank++;
+} else {
+ranking += sameRank;
+sameRank = 1;
+}
+}
+}
+str += "<\/table>";
+
+document.getElementById("resultField").innerHTML = str;
+}
+
+//比較する２つ要素の?示+++++++++++++++++++++++++++++++++++
+function showImage() {
+var str0 = "Battle No."+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+var str1 = ""+toNameFace(lstMember[cmp1][head1]);
+var str2 = ""+toNameFace(lstMember[cmp2][head2]);
+
+document.getElementById("battleNumber").innerHTML = str0;
+document.getElementById("leftField").innerHTML = str1;
+document.getElementById("rightField").innerHTML = str2;
+
+numQuestion++;
+}
+
+//数値を名前（顔文字）に変換+++++++++++++++++++++++++++++++
+function toNameFace(n){
+var str = namMember[n];
+
+//顔文字を追加する場合は以下のコメントアウトを外す
+//namMemberのインデックスと矛盾しないように注意
+/*
+str += "<br>────<br>";
+switch(n) {
+//case -1 はサンプルなので削除すること
+case -1: str+="（ ´∀｀）";break;
+default: str+=""+n;
+}
+*/
+return str;
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+
+
+
+
+
+
+
+
+
+
+
+/**********************************************************
+
+ ?のス?イルを変更する場合はここを編集してください。
+
+**********************************************************/
+#mainTable{
+font-size: 11px;
+font-family: '돋움',sans-serif;
+text-align: center;
+vertical-align: middle;
+width: 410px;
+margin-left: auto;
+margin-right: auto;
+border-collapse: separate;
+border-spacing: 10px 5px;
+}
+#leftField{
+width: 120px;
+height: 150px;
+border: 1px solid #000;
+}
+#rightField{
+width: 120px;
+height: 150px;
+border: 1px solid #000;
+}
+.middleField{
+width: 120px;
+height: 70px;
+border: 1px solid #000;
+}
+//-->
+<!--
+A{
+  text-decoration : none;
+}
+-->
+<!--
+a:hover{color:#99ccff;}
+-->
+</style>
+<meta name="generator" content="Namo WebEditor(Trial)">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"></head>
+
+<body text="#000000" bgcolor="#ffffff" link="#0099ff" vlink="#0099ff" alink="#0099ff">
+<table id="mainTable" align="center">
+<tr>
+        <td id="battleNumber" colspan="3" style="padding-bottom: 10px;">
+            <p>&nbsp;</p>
+        </td>
+</tr>
+<tr>
+<td id="leftField" onClick="if(finishFlag==0)sortList(-1);" rowspan="2">
+&nbsp;
+</td>
+<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
+둘 다 좋다
+</td>
+<td id="rightField" onClick="if(finishFlag==0)sortList(1);" rowspan="2">
+</td>
+</tr>
+<tr>
+<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
+모르겠다
+</td>
+</tr>
+</table><br><br>
+<div id="resultField" style="text-align:center;">
+    <p><font size="2" face="돋움"><span style="">~263화까지 엄선된 80개의 류최 항목</font></p>
+    <p><font size="2" face="돋움">대사 외 묘사(행동지문, 속마음 등): [내용], 대사는 기호 없습니다.</font></p>
+
+</div>
+<script type="text/javascript">
+<!--
+initList();
+showImage();
+//-->
+</script>
+
+</body>
+</html>
